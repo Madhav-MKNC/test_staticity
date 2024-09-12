@@ -4,17 +4,13 @@ body {
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-    text-align: center;
 }
 
 /* Style for the container holding the list of items */
 .card-container {
-    width: 80%;
-    margin: 20px auto;
+    margin: auto;
     padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
 }
 
 /* Style for each individual item in the list */
@@ -39,4 +35,28 @@ body {
 
 .clickable:hover {
     background-color: #a0d1ff;
+}
+
+/* File content container */
+#file-content-container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* File content display */
+#file-content {
+    white-space: pre-wrap;
+    /* Preserve spaces and newlines */
+    word-wrap: break-word;
+    /* Wrap long words */
+    font-family: monospace;
+    /* Use monospace font for file content */
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+    /* Align the text to the left */
 }

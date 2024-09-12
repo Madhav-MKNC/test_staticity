@@ -27,6 +27,12 @@ function fetchAndDisplayItems(path = '') {
                             const newPath = currentPath ? `${currentPath}/${item.name}` : item.name;
                             fetchAndDisplayItems(newPath);
                         });
+                    } else {
+                        // If it's a file, make it clickable to view its contents
+                        card.classList.add('file-clickable');
+                        card.addEventListener('click', () => {
+                            fetchAndDisplayFileContent(`${currentPath}/${item.name}`);
+                        });
                     }
 
                     itemsContainer.appendChild(card);
@@ -38,6 +44,31 @@ function fetchAndDisplayItems(path = '') {
         .catch(error => {
             console.error('Error fetching items:', error);
             itemsContainer.textContent = 'Failed to load items.';
+        });
+}
+
+// Function to fetch and display file contents
+function fetchAndDisplayFileContent(filePath) {
+    const fileContentContainer = document.getElementById('file-content');
+    fileContentContainer.innerHTML = 'Loading...';
+
+    fetch(`http://localhost:1234/get_file_content?file=${encodeURIComponent(filePath)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch file content');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.content) {
+                fileContentContainer.textContent = data.content;
+            } else {
+                fileContentContainer.textContent = 'Failed to load file content.';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching file content:', error);
+            fileContentContainer.textContent = 'Failed to load file content.';
         });
 }
 

@@ -38,5 +38,30 @@ def get_list():
         return jsonify({'error': str(e)}), 500
 
 
+# New route to fetch file content
+@app.route('/get_file_content', methods=['GET'])
+def get_file_content():
+    file_path = request.args.get('file')
+
+    # Join the base path with the requested file path
+    full_path = os.path.abspath(os.path.join(BASE_PATH, file_path))
+
+    # Ensure the file is inside the base directory for security reasons
+    if not full_path.startswith(BASE_PATH):
+        return jsonify({'error': 'Invalid path'}), 400
+
+    # Check if the file exists and is readable
+    if not os.path.isfile(full_path):
+        return jsonify({'error': 'File not found'}), 404
+
+    # Try reading the file contents
+    try:
+        with open(full_path, 'r') as file:
+            content = file.read()
+        return jsonify({'content': content})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 if __name__ == '__main__':
     app.run(host='localhost', port=1234, debug=True)
