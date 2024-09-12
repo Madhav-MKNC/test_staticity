@@ -7,12 +7,20 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
+        <div class="navigation-container">
+            <!-- Back and Forward buttons -->
+            <button id="back-button" disabled>Back</button>
+            <button id="forward-button" disabled>Forward</button>
+        </div>
+
+        <!-- Breadcrumb navigation for current path -->
+        <div id="breadcrumb-container"></div>
+
         <div class="card-container">
             <h2>Item List</h2>
             <div id="items"></div>
         </div>
 
-        <!-- File content container without centering or extra formatting -->
         <div id="file-content-container">
             <h2>File Content</h2>
             <div id="file-content"></div>

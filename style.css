@@ -60,3 +60,54 @@ body {
     text-align: left;
     /* Align the text to the left */
 }
+
+
+
+
+
+
+
+/* Back and forward buttons */
+.navigation-container {
+    margin: 20px;
+    text-align: left;
+}
+
+#back-button,
+#forward-button {
+    padding: 8px 16px;
+    margin-right: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#back-button:disabled,
+#forward-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Breadcrumb container */
+#breadcrumb-container {
+    margin: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    text-align: left;
+}
+
+/* Breadcrumb links */
+.breadcrumb {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.breadcrumb:hover {
+    color: #0056b3;
+}
