@@ -73,10 +73,9 @@ body {
     text-align: left;
 }
 
-#back-button,
-#forward-button {
+
+#back-button {
     padding: 8px 16px;
-    margin-right: 10px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -84,8 +83,7 @@ body {
     cursor: pointer;
 }
 
-#back-button:disabled,
-#forward-button:disabled {
+#back-button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }

@@ -1,5 +1,3 @@
-let backHistory = [];
-let forwardHistory = [];
 let currentPath = '';
 
 // Function to update the breadcrumb navigation
@@ -7,12 +5,29 @@ function updateBreadcrumb(path) {
     const breadcrumbContainer = document.getElementById('breadcrumb-container');
     breadcrumbContainer.innerHTML = ''; // Clear previous breadcrumbs
 
+    // Split the path into parts for breadcrumb navigation
     const pathParts = path ? path.split('/') : [];
+
+    // Create a clickable "Root" for the base path
+    const rootBreadcrumb = document.createElement('span');
+    rootBreadcrumb.textContent = 'Root';
+    rootBreadcrumb.classList.add('breadcrumb');
+    rootBreadcrumb.addEventListener('click', () => {
+        navigateToPath(''); // Root path
+    });
+    breadcrumbContainer.appendChild(rootBreadcrumb);
+
+    // Add a separator if there are path parts
+    if (pathParts.length > 0) {
+        const separator = document.createElement('span');
+        separator.textContent = ' / ';
+        breadcrumbContainer.appendChild(separator);
+    }
 
     // Create breadcrumb links for each part of the path
     pathParts.forEach((part, index) => {
         const breadcrumb = document.createElement('span');
-        breadcrumb.textContent = part || 'Root';
+        breadcrumb.textContent = part;
         breadcrumb.classList.add('breadcrumb');
 
         // Add click event to go to the clicked path part
@@ -77,6 +92,9 @@ function fetchAndDisplayItems(path = '') {
             } else {
                 itemsContainer.textContent = 'This directory is empty.';
             }
+
+            // Enable or disable the back button
+            document.getElementById('back-button').disabled = currentPath === '';
         })
         .catch(error => {
             console.error('Error fetching items:', error);
@@ -111,46 +129,14 @@ function fetchAndDisplayFileContent(filePath) {
 
 // Function to navigate to a specific path
 function navigateToPath(path) {
-    // Add current path to back history before navigating
-    if (currentPath) {
-        backHistory.push(currentPath);
-        document.getElementById('back-button').disabled = false; // Enable back button
-    }
-
-    // Clear forward history whenever a new path is navigated to
-    forwardHistory = [];
-    document.getElementById('forward-button').disabled = true; // Disable forward button
-
     fetchAndDisplayItems(path);
 }
 
-// Back button functionality
+// Back button functionality: navigate to parent directory
 document.getElementById('back-button').addEventListener('click', () => {
-    if (backHistory.length > 0) {
-        forwardHistory.push(currentPath);
-        document.getElementById('forward-button').disabled = false; // Enable forward button
-
-        const previousPath = backHistory.pop();
-        fetchAndDisplayItems(previousPath);
-
-        if (backHistory.length === 0) {
-            document.getElementById('back-button').disabled = true; // Disable back button
-        }
-    }
-});
-
-// Forward button functionality
-document.getElementById('forward-button').addEventListener('click', () => {
-    if (forwardHistory.length > 0) {
-        backHistory.push(currentPath);
-        document.getElementById('back-button').disabled = false; // Enable back button
-
-        const nextPath = forwardHistory.pop();
-        fetchAndDisplayItems(nextPath);
-
-        if (forwardHistory.length === 0) {
-            document.getElementById('forward-button').disabled = true; // Disable forward button
-        }
+    if (currentPath) {
+        const parentPath = currentPath.split('/').slice(0, -1).join('/');
+        navigateToPath(parentPath);
     }
 });
 
