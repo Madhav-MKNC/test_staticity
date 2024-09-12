@@ -55,7 +55,7 @@ function fetchAndDisplayItems(path = '') {
     const itemsContainer = document.getElementById('items');
     itemsContainer.innerHTML = ''; // Clear previous content
 
-    fetch(`http://localhost:1234/get_list?path=${encodeURIComponent(path)}`)
+    fetch(`https://3b1e6289-6724-4ba5-a16e-280f12125dcd-00-m96lsk2gnf55.pike.replit.dev/get_list?path=${encodeURIComponent(path)}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch directory contents');
@@ -107,7 +107,7 @@ function fetchAndDisplayFileContent(filePath) {
     const fileContentContainer = document.getElementById('file-content');
     fileContentContainer.innerHTML = 'Loading...';
 
-    fetch(`http://localhost:1234/get_file_content?file=${encodeURIComponent(filePath)}`)
+    fetch(`https://3b1e6289-6724-4ba5-a16e-280f12125dcd-00-m96lsk2gnf55.pike.replit.dev/get_file_content?file=${encodeURIComponent(filePath)}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch file content');
